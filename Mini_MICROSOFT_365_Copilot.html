@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sakshi Memane — Mini Microsoft 365 Copilot Demo</title>
+  <meta name="description" content="Sakshi Memane — Software Engineer. Mini Microsoft 365 Copilot demo: mobile-first, AI-style search, product thinking." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --blue:#0078d7;
+      --muted:#6b7280;
+      --bg:#f4f6f8;
+      --card:#ffffff;
+      --glass: rgba(255,255,255,0.7);
+      --radius:14px;
+    }
+    *{box-sizing:border-box}
+    body{
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      margin:0;
+      background:var(--bg);
+      color:#0f1724;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+    }
+    a{color:var(--blue); text-decoration:none}
+    header.topbar{
+      background:linear-gradient(90deg,var(--blue),#00bfff);
+      color:#fff;
+      padding:8px 18px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font-size:0.95rem;
+    }
+    header.topbar .left{font-weight:600}
+    header.topbar .right{font-size:0.95rem; opacity:0.95}
+    main{max-width:1100px;margin:28px auto;padding:0 18px;}
+    .hero{
+      display:grid;
+      grid-template-columns: 120px 1fr;
+      gap:22px;
+      align-items:center;
+      background:linear-gradient(180deg,rgba(255,255,255,0.6),transparent);
+      border-radius:var(--radius);
+      padding:22px;
+      box-shadow:0 6px 22px rgba(2,6,23,0.06);
+      margin-bottom:18px;
+    }
+    .avatar{
+      width:120px;height:120px;border-radius:50%;overflow:hidden;border:4px solid #fff;
+      background:linear-gradient(180deg,#fff,#f3f6f8);display:flex;align-items:center;justify-content:center;
+    }
+    .avatar img{width:100%;height:100%;object-fit:cover;}
+    .hero h1{margin:0;font-size:1.6rem;color:#041124}
+    .hero p.lead{margin:8px 0 0;color:var(--muted)}
+    .cta-row{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap}
+    .btn{background:var(--blue);color:#fff;padding:8px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:600}
+    .btn.ghost{background:transparent;border:1px solid rgba(15,23,36,0.06);color:var(--blue)}
+    /* Layout grid for content like Sonu */
+    .section{background:var(--card);border-radius:var(--radius);padding:20px;margin-bottom:18px;box-shadow:0 6px 18px rgba(2,6,23,0.04)}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}
+    .two-col img{width:100%;border-radius:12px;box-shadow:0 8px 24px rgba(2,6,23,0.06)}
+    h2{color:var(--blue);margin:0 0 12px;font-size:1.25rem}
+    .muted{color:var(--muted);font-size:0.95rem}
+    ul.bullets{padding-left:18px;margin:6px 0}
+    ul.bullets li{margin:8px 0}
+    /* Demo card */
+    .demo-wrap{display:flex;gap:22px;flex-direction:column;align-items:center}
+    .device{
+      width:360px; border-radius:28px;padding:16px;background:linear-gradient(180deg,#fff, #fbfdff);
+      box-shadow:0 14px 40px rgba(2,6,23,0.12);
+      border:1px solid rgba(3,10,20,0.03);
+    }
+    .device .screen{background:#f8fafc;border-radius:12px;padding:12px;}
+    .searchbar{
+      display:flex;align-items:center;gap:8px;background:white;padding:8px;border-radius:10px;border:1px solid #e6eef9;
+    }
+    .searchbar input{border:0;outline:none;font-size:0.98rem;width:100%;padding:6px}
+    .chips{display:flex;gap:8px;margin:10px 0;flex-wrap:wrap}
+    .chip{background:#eef6ff;color:var(--blue);padding:6px 10px;border-radius:999px;font-weight:600;font-size:0.85rem}
+    .results{max-height:260px;overflow:auto;margin-top:6px}
+    .card-item{display:flex;gap:12px;align-items:flex-start;padding:10px;border-radius:10px;margin-bottom:8px;background:white;border:1px solid #eef6ff;cursor:pointer;transition:transform .12s ease,box-shadow .12s ease}
+    .card-item:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(2,6,23,0.08)}
+    .icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:#f3f8ff;color:var(--blue);font-weight:700}
+    .title{font-weight:600}
+    .sub{font-size:0.88rem;color:var(--muted)}
+    /* feature grid */
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+    .feature{background:linear-gradient(180deg,#fff,#fcfdff);padding:12px;border-radius:10px;border:1px solid rgba(3,10,20,0.03)}
+    .feature h4{margin:0 0 8px;color:var(--blue);font-size:1rem}
+    .feature p{margin:0;color:var(--muted);font-size:0.92rem}
+    footer{margin:20px auto;text-align:center;color:var(--muted);font-size:0.95rem}
+    /* responsive */
+    @media (max-width:880px){
+      .two-col{grid-template-columns:1fr}
+      .hero{grid-template-columns:90px 1fr}
+      .device{width:92%}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top bar with contact -->
+  <header class="topbar">
+    <div class="left">Mini Microsoft Copilot — Application</div>
+    <div class="right">sakshimemane22@gmail.com • +91 9075431415</div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="avatar">
+        <!-- Replace with your photo file path: assets/sakshi.png -->
+        <img src="assets/sakshi.png" alt="Sakshi Memane profile" onerror="this.src='https://via.placeholder.com/120'">
+      </div>
+      <div>
+        <h1>Hello, I’m <strong>Sakshi Memane</strong></h1>
+        <p class="lead muted">Software Engineer • AI & Mobile Productivity Enthusiast — I build product-focused prototypes that combine mobile-first UX with intelligent search to help users find what matters faster.</p>
+        <div class="cta-row">
+          <a class="btn" href="assets/Sakshi_Memane_Resume.pdf" target="_blank" rel="noopener">Download Resume</a>
+          <a class="btn ghost" href="https://github.com/YOUR_USERNAME/mini-copilot-web-demo" target="_blank" rel="noopener">View Code</a>
+          <a class="btn ghost" href="assets\copilot-demo.gif" target="_blank" rel="noopener">Live Demo</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- College + Experience -->
+    <section class="section two-col">
+      <div>
+        <h2>College Experience</h2>
+        <p class="muted">Sardar Patel Institute of Technology — B.Tech (Electronics) • Minor: Computer Science • CGPA: 8/9</p>
+        <ul class="bullets">
+          <li>Built a student scheduling app (Flutter) and deployed it to Play Store.</li>
+          <li>Won hackathons and contributed to open-source tools focused on productivity.</li>
+          <li>Led a team to digitize manual campus processes reducing wait times for students.</li>
+        </ul>
+      </div>
+      <div>
+        <img src="assets/college_sample.jpg" alt="college image" onerror="this.src='https://via.placeholder.com/600x360'">
+      </div>
+    </section>
+
+    <section class="section two-col">
+      <div>
+        <img src="assets/jpm_logo.jpg" alt="JPMorgan" onerror="this.src='https://via.placeholder.com/600x360'">
+      </div>
+      <div>
+        <h2>Professional Experience</h2>
+        <p class="muted">Growing Tree Wealth Pvt. Ltd — Backend Intern (Jan 2025 – Jul 2025)</p>
+        <ul class="bullets">
+          <li>Designed Python data pipelines processing financial logs; improved extraction efficiency by 30%.</li>
+          <li>Built RESTful APIs and optimized DB queries for scalable throughput.</li>
+          <li>Automated CI/CD pipelines using GitHub Actions; improved deployment reliability.</li>
+        </ul>
+        <p class="muted">AIM4U Software & Solutions — Fullstack Intern (May 2023 – Aug 2023)</p>
+        <ul class="bullets">
+          <li>Built a web portal serving 1,000+ students using MongoDB & Firebase; reduced data errors by 40%.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- PROJECT SPOTLIGHT -->
+    <section class="section">
+      <h2>Project Spotlight — Mini Microsoft 365 Copilot Demo</h2>
+      <p class="muted">Why I built it: I noticed users lose productivity searching across documents, chats and email on mobile. To explore solutions, I built a prototype that demonstrates context-aware search, mobile-first UX, and intelligent suggestions — all designed to align with Microsoft Copilot’s goals.</p>
+
+      <div class="demo-wrap">
+        <!-- Device mockup -->
+        <div class="device">
+          <div class="screen">
+            <div class="searchbar">
+              <img src="assets/icons/search.svg/search.png" alt="search" style="width:18px;height:18px;opacity:.8">
+              <input id="search" placeholder="Search documents, chats, emails..." aria-label="Search documents">
+              <div style="width:10px"></div>
+            </div>
+
+            <!-- chips -->
+            <div id="chips" class="chips" aria-hidden="true"></div>
+
+            <!-- results -->
+            <div id="results" class="results" role="list" aria-live="polite" style="margin-top:8px"></div>
+          </div>
+        </div>
+
+        <!-- Right side explanation -->
+        <div style="max-width:680px">
+          <h3 style="margin-top:0">What I built, and why it matters</h3>
+          <ul class="bullets muted">
+            <li><strong>Context-aware search & typeahead:</strong> Simulated intelligent suggestions & prioritized ranking to reduce time-to-find.</li>
+            <li><strong>Mobile-first UX:</strong> Touch-friendly layout, sticky search, and smooth micro-interactions—designed like real iOS flows.</li>
+            <li><strong>Performance focus:</strong> Optimized DOM updates and lightweight JSON data for sub-200ms interactions.</li>
+            <li><strong>End-to-end ownership:</strong> I handled ideation, design, implementation, testing, and deployment.</li>
+          </ul>
+          <p class="muted">Try the demo (search inside the mobile mockup). Click any result to read a preview and AI-style suggestion.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section">
+      <h2>Key Contributions & Skills Demonstrated</h2>
+      <div class="grid">
+        <div class="feature"><h4>AI-style Search</h4><p>Typeahead, fuzzy matches, and ranking simulation for Docs/Excel/Slides/Chat.</p></div>
+        <div class="feature"><h4>Mobile-First Design</h4><p>Responsive layout mimicking iOS design patterns (touch targets, clean cards).</p></div>
+        <div class="feature"><h4>Performance</h4><p>Optimized rendering, lazy updates, and small JSON datasets to simulate scalable performance.</p></div>
+        <div class="feature"><h4>Product Thinking</h4><p>Designed features to solve real user pain: find content fast across apps.</p></div>
+      </div>
+    </section>
+
+    <!-- OTHER PROJECTS -->
+    <section class="section two-col">
+      <div>
+        <h2>Other Projects</h2>
+        <p class="muted"><strong>Data-Driven Financial Transaction Analysis</strong> (Python, OpenAI API, AWS EC2) — built resume/skill analyzer and scalable batch pipelines; 95% model accuracy in prototype.</p>
+        <p class="muted"><strong>E-Commerce Platform</strong> (MERN, PostgreSQL) — implemented real-time inventory logic and optimized API latencies by 32%.</p>
+      </div>
+      <div>
+        <h2>Tech & Tools</h2>
+        <p class="muted">JavaScript • Python • C++ • React • Node.js • REST APIs • JSON • AWS • GitHub Actions • SwiftUI (learning) • Mobile-first UX</p>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section">
+      <h2>Get in touch</h2>
+      <p class="muted">I built this demo to demonstrate how I approach product + engineering problems. If you'd like to discuss how I can contribute to Microsoft 365 Copilot Mobile, please reach out.</p>
+      <p style="margin-top:12px">
+        <a class="btn" href="sakshimemane22@gmail.com">Email me</a>
+        <a class="btn ghost" href="https://www.linkedin.com/in/sakshimemane" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn ghost" href="https://github.com/Sakshimemane1" target="_blank" rel="noopener">GitHub</a>
+      </p>
+    </section>
+
+    <footer>
+      © 2025 Sakshi Memane — Built for Microsoft 365 Copilot Mobile role
+    </footer>
+  </main>
+
+  <!-- MODAL (preview) -->
+  <div id="previewModal" style="display:none; position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(2,6,23,0.6);align-items:center;justify-content:center;z-index:1000">
+    <div style="background:white;border-radius:14px;padding:18px;max-width:560px;width:92%;box-shadow:0 18px 50px rgba(2,6,23,0.3)">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <strong id="previewTitle"></strong>
+        <button id="closePreview" style="background:#eee;border:0;padding:6px 10px;border-radius:8px;cursor:pointer">Close</button>
+      </div>
+      <div id="previewBody" style="color:var(--muted);margin-bottom:10px"></div>
+      <div id="previewSuggestion" style="font-style:italic;color:var(--blue)"></div>
+    </div>
+  </div>
+
+  <script>
+    
+    const docs = [
+      { id:1, title: "Q2 Budget.xlsx", type:"Excel", snippet:"Quarterly budget and variance analysis with pivot summaries.", tags:["budget","finance"] },
+      { id:2, title: "Team Roadmap.docx", type:"Word", snippet:"Product roadmap for Q3 with milestones and owners.", tags:["roadmap","product"] },
+      { id:3, title: "Onboarding Slides.pptx", type:"PowerPoint", snippet:"Slides for new joiner onboarding and processes overview.", tags:["onboarding","slides"] },
+      { id:4, title: "Sales Chat - 2025/06", type:"Chat", snippet:"Team chat discussing feature requests and timelines.", tags:["chat","sales"] },
+      { id:5, title: "Expense Reimbursements.xlsx", type:"Excel", snippet:"Expense claim tracker and approvals.", tags:["expense","finance"] },
+      { id:6, title: "Weekly Notes - Product.docx", type:"Word", snippet:"Notes from weekly product sync with action items.", tags:["notes","product"] },
+      { id:7, title: "Customer Pitch Deck.pptx", type:"PowerPoint", snippet:"High-level pitch deck with KPIs and case studies.", tags:["pitch","customer"] },
+      { id:8, title: "Support Chat - Ticket 1234", type:"Chat", snippet:"Support conversation regarding bug report and steps to reproduce.", tags:["support","bug"] },
+      { id:9, title: "Project Retrospective.docx", type:"Word", snippet:"Retrospective notes focusing on improvements and actions.", tags:["retrospective","process"] },
+      { id:10, title: "Data Pipeline Design.docx", type:"Word", snippet:"Design doc for ETL pipeline, schema, and failure handling.", tags:["data","etl"] }
+    ];
+
+    /***********************
+     * Utilities: fuzzy scoring (simple)
+     ***********************/
+    function scoreMatch(query, doc){
+      if(!query) return 1; // show all if empty
+      query = query.toLowerCase();
+      let score = 0;
+      if(doc.title.toLowerCase().includes(query)) score += 10;
+      if(doc.snippet.toLowerCase().includes(query)) score += 6;
+      for(const t of doc.tags) if(t.includes(query)) score += 4;
+      // small boost for type-specific relevance
+      return score;
+    }
+
+    // UI Elements
+    const searchEl = document.getElementById('search');
+    const resultsEl = document.getElementById('results');
+    const chipsEl = document.getElementById('chips');
+    const previewModal = document.getElementById('previewModal');
+    const previewTitle = document.getElementById('previewTitle');
+    const previewBody = document.getElementById('previewBody');
+    const previewSuggestion = document.getElementById('previewSuggestion');
+    const closePreview = document.getElementById('closePreview');
+
+    // Filters
+    const filterBtns = Array.from(document.querySelectorAll('.filter-btn'));
+    let activeFilter = 'All';
+
+    filterBtns.forEach(b=>{
+      b.addEventListener('click', ()=>{
+        filterBtns.forEach(x=>x.classList.remove('active'));
+        b.classList.add('active');
+        activeFilter = b.dataset.type;
+        renderResults();
+      });
+    });
+
+    // initial chips
+    const commonChips = ["budget","roadmap","onboarding","support","data"];
+    function renderChips(){
+      chipsEl.innerHTML = '';
+      commonChips.forEach(c=>{
+        const el = document.createElement('div');
+        el.className = 'chip';
+        el.textContent = c;
+        el.addEventListener('click', ()=> {
+          searchEl.value = c;
+          renderResults();
+        });
+        chipsEl.appendChild(el);
+      });
+    }
+
+    // render results (with ranking)
+    function renderResults(){
+      const q = (searchEl.value || '').trim().toLowerCase();
+      // compute scores
+      const list = docs
+        .map(d=> ({...d, score: scoreMatch(q,d)}))
+        .filter(d=> {
+          if(activeFilter === 'All') return true;
+          return d.type === activeFilter;
+        })
+        .filter(d=> d.score>0) // hide zero matches when query present
+        .sort((a,b)=> b.score - a.score);
+      // render
+      resultsEl.innerHTML = '';
+      if(list.length===0){
+        resultsEl.innerHTML = '<div style="padding:12px;color:var(--muted)">No results — try another keyword</div>';
+        return;
+      }
+      for(const item of list){
+        const card = document.createElement('div');
+        card.className = 'card-item';
+        card.innerHTML = `
+          <div style="display:flex;gap:12px;align-items:center">
+            <div class="icon">${item.type[0]}</div>
+            <div>
+              <div class="title">${highlight(item.title, searchEl.value)}</div>
+              <div class="sub">${highlight(item.snippet, searchEl.value)}</div>
+            </div>
+          </div>
+        `;
+        card.addEventListener('click', ()=> openPreview(item));
+        resultsEl.appendChild(card);
+      }
+    }
+
+    // highlight helper
+    function highlight(text, q){
+      if(!q) return text;
+      const safe = escapeHtml(text);
+      const re = new RegExp('('+escapeRegExp(q)+')','ig');
+      return safe.replace(re, `<mark style="background: #fff2c9;padding:2px;border-radius:3px;color:#663c00">$1</mark>`);
+    }
+    function escapeRegExp(s){ return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); }
+    function escapeHtml(s){ return s.replace(/[&<>"']/g, (m)=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+    // open preview modal
+    function openPreview(item){
+      previewTitle.textContent = item.title + " — " + item.type;
+      previewBody.textContent = item.snippet + " (preview)";
+      previewSuggestion.textContent = "Suggestion: You may also want to check related documents in " + item.type + " or search '" + (item.tags[0] || '') + "'.";
+      previewModal.style.display = 'flex';
+    }
+    closePreview.addEventListener('click', ()=> previewModal.style.display='none');
+    previewModal.addEventListener('click', (e)=> { if(e.target === previewModal) previewModal.style.display='none' });
+
+    // search events + debounce
+    let debounce;
+    searchEl.addEventListener('input', ()=>{
+      clearTimeout(debounce);
+      debounce = setTimeout(()=> renderResults(), 120);
+    });
+
+    // initial render
+    renderChips();
+    renderResults();
+
+    // Resume / links (button actions)
+    document.querySelectorAll('.btn').forEach(b=>{
+      b.addEventListener('click', (e)=>{
+        // if it's download resume, let default
+      });
+    });
+
+  </script>
+</body>
+</html>
